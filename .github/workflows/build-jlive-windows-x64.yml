@@ -72,6 +72,22 @@ jobs:
           New-Item -ItemType Directory -Path $binTarget -Force | Out-Null
           Copy-Item -Path (Join-Path $binSource.FullName "*") -Destination $binTarget -Recurse -Force
 
+          # Xray 26.7.11 and later reject public VLESS without TLS. Keep the
+          # last compatible core for existing JLive plain-VLESS profiles.
+          $xrayVersion = "26.6.27"
+          $xrayArchive = Join-Path $env:RUNNER_TEMP "Xray-windows-64-$xrayVersion.zip"
+          $xrayExtract = Join-Path $env:RUNNER_TEMP "Xray-windows-64-$xrayVersion"
+          $xrayUrl = "https://github.com/XTLS/Xray-core/releases/download/v$xrayVersion/Xray-windows-64.zip"
+          Invoke-WebRequest -Uri $xrayUrl -OutFile $xrayArchive
+          Expand-Archive -Path $xrayArchive -DestinationPath $xrayExtract -Force
+          Copy-Item -Path (Join-Path $xrayExtract "xray.exe") -Destination (Join-Path $binTarget "Xray\xray.exe") -Force
+
+          $xrayVersionOutput = & (Join-Path $binTarget "Xray\xray.exe") version 2>&1 | Out-String
+          if ($xrayVersionOutput -notmatch "Xray 26\.6\.27") {
+            throw "Unexpected bundled Xray version: $xrayVersionOutput"
+          }
+          Write-Host $xrayVersionOutput
+
           $requiredCores = @(
             "bin\Xray\xray.exe",
             "bin\sing_box\sing-box.exe"
