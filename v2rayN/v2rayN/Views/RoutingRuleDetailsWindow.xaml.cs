@@ -77,8 +77,4 @@ public partial class RoutingRuleDetailsWindow
         }
     }
 
-    private void linkRuleobjectDoc_Click(object sender, RoutedEventArgs e)
-    {
-        ProcUtils.ProcessStart("https://xtls.github.io/config/routing.html#ruleobject");
-    }
 }

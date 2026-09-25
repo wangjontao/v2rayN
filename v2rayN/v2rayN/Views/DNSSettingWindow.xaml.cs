@@ -77,13 +77,4 @@ public partial class DNSSettingWindow
         WindowsUtils.SetDarkBorder(this, AppManager.Instance.Config.UiItem.CurrentTheme);
     }
 
-    private void linkDnsObjectDoc_Click(object sender, RoutedEventArgs e)
-    {
-        ProcUtils.ProcessStart("https://xtls.github.io/config/dns.html#dnsobject");
-    }
-
-    private void linkDnsSingboxObjectDoc_Click(object sender, RoutedEventArgs e)
-    {
-        ProcUtils.ProcessStart("https://sing-box.sagernet.org/zh/configuration/dns/");
-    }
 }

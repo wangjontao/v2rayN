@@ -1,0 +1,66 @@
+name: Build JLive Windows x64
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - jlive-custom
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      OUTPUT_DIR: ${{ github.workspace }}\JLive-windows-x64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.1xx
+
+      - name: Publish JLive
+        shell: pwsh
+        working-directory: ./v2rayN
+        run: |
+          dotnet publish ./v2rayN/v2rayN.csproj `
+            -c Release `
+            -r win-x64 `
+            -p:SelfContained=true `
+            -p:EnableWindowsTargeting=true `
+            -o "$env:OUTPUT_DIR"
+
+      - name: Publish AmazTool
+        shell: pwsh
+        working-directory: ./v2rayN
+        run: |
+          dotnet publish ./AmazTool/AmazTool.csproj `
+            -c Release `
+            -r win-x64 `
+            -p:SelfContained=true `
+            -p:PublishTrimmed=true `
+            -p:EnableWindowsTargeting=true `
+            -o "$env:OUTPUT_DIR"
+
+      - name: Remove debug symbols
+        shell: pwsh
+        run: Get-ChildItem -Path "$env:OUTPUT_DIR" -Filter *.pdb -Recurse | Remove-Item -Force
+
+      - name: Create ZIP package
+        shell: pwsh
+        run: Compress-Archive -Path "$env:OUTPUT_DIR\*" -DestinationPath "${{ github.workspace }}\JLive-windows-x64.zip" -Force
+
+      - name: Upload JLive Windows x64
+        uses: actions/upload-artifact@v7
+        with:
+          name: JLive-windows-x64
+          path: JLive-windows-x64.zip
+          if-no-files-found: error

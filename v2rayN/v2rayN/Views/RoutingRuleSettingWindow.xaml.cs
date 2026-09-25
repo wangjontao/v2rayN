@@ -170,8 +170,4 @@ public partial class RoutingRuleSettingWindow
         txtCustomRulesetPath4Singbox.Text = fileName;
     }
 
-    private void linkCustomRulesetPath4Singbox(object sender, RoutedEventArgs e)
-    {
-        ProcUtils.ProcessStart("https://github.com/2dust/v2rayCustomRoutingList/blob/master/singbox_custom_ruleset_example.json");
-    }
 }

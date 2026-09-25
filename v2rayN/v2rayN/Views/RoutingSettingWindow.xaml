@@ -68,10 +68,7 @@
                 Margin="{StaticResource Margin4}"
                 VerticalAlignment="Center"
                 Style="{StaticResource ToolbarTextBlock}">
-                <Hyperlink Click="linkdomainStrategy_Click">
-                    <TextBlock Text="{x:Static resx:ResUI.TbdomainStrategy}" />
-                    <materialDesign:PackIcon Kind="Link" />
-                </Hyperlink>
+                <Run Text="{x:Static resx:ResUI.TbdomainStrategy}" />
             </TextBlock>
             <ComboBox
                 x:Name="cmbdomainStrategy"
@@ -87,10 +84,7 @@
                 Margin="{StaticResource Margin4}"
                 VerticalAlignment="Center"
                 Style="{StaticResource ToolbarTextBlock}">
-                <Hyperlink Click="linkdomainStrategy4Singbox_Click">
-                    <TextBlock Text="{x:Static resx:ResUI.TbdomainStrategy4Singbox}" />
-                    <materialDesign:PackIcon Kind="Link" />
-                </Hyperlink>
+                <Run Text="{x:Static resx:ResUI.TbdomainStrategy4Singbox}" />
             </TextBlock>
             <ComboBox
                 x:Name="cmbdomainStrategy4Singbox"

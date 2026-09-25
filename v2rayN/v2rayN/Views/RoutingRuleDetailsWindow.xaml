@@ -167,10 +167,7 @@
                 Margin="{StaticResource Margin4}"
                 VerticalAlignment="Center"
                 Style="{StaticResource ToolbarTextBlock}">
-                <Hyperlink Click="linkRuleobjectDoc_Click">
-                    <TextBlock Text="{x:Static resx:ResUI.TbRuleobjectDoc}" />
-                    <materialDesign:PackIcon Kind="Link" />
-                </Hyperlink>
+                <Run Text="{x:Static resx:ResUI.TbRuleobjectDoc}" />
             </TextBlock>
 
             <TextBlock

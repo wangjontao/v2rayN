@@ -10,7 +10,7 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:view="clr-namespace:v2rayN.Views"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
-    Title="v2rayN"
+    Title="JLive"
     Width="1200"
     Height="800"
     MinWidth="800"
@@ -243,25 +243,6 @@
                         <Separator />
                         <Menu Margin="0,1" Style="{StaticResource ToolbarMenu}">
                             <MenuItem
-                                x:Name="menuHelp"
-                                Padding="{StaticResource MarginLeftRight8}"
-                                AutomationProperties.Name="{x:Static resx:ResUI.menuHelp}">
-                                <MenuItem.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Margin="{StaticResource MarginRight8}"
-                                            VerticalAlignment="Center"
-                                            Kind="HelpCircleOutline" />
-                                        <TextBlock Text="{x:Static resx:ResUI.menuHelp}" />
-                                    </StackPanel>
-                                </MenuItem.Header>
-                                <MenuItem x:Name="menuCheckUpdate" Header="{x:Static resx:ResUI.menuCheckUpdate}" />
-                                <Separator Margin="-40,5" />
-                            </MenuItem>
-                        </Menu>
-                        <Separator />
-                        <Menu Margin="0,1" Style="{StaticResource ToolbarMenu}">
-                            <MenuItem
                                 x:Name="menuReload"
                                 Padding="{StaticResource MarginLeftRight8}"
                                 AutomationProperties.Name="{x:Static resx:ResUI.menuReload}">
@@ -272,23 +253,6 @@
                                             VerticalAlignment="Center"
                                             Kind="Reload" />
                                         <TextBlock Text="{x:Static resx:ResUI.menuReload}" />
-                                    </StackPanel>
-                                </MenuItem.Header>
-                            </MenuItem>
-                        </Menu>
-                        <Separator />
-                        <Menu Margin="0,1" Style="{StaticResource ToolbarMenu}">
-                            <MenuItem
-                                x:Name="menuPromotion"
-                                Padding="{StaticResource MarginLeftRight8}"
-                                AutomationProperties.Name="{x:Static resx:ResUI.menuPromotion}">
-                                <MenuItem.Header>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Margin="{StaticResource MarginRight8}"
-                                            VerticalAlignment="Center"
-                                            Kind="VolumeHigh" />
-                                        <TextBlock Text="{x:Static resx:ResUI.menuPromotion}" />
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
@@ -319,12 +283,6 @@
                             <ContentControl x:Name="pbTheme" />
                         </materialDesign:PopupBox>
 
-                        <Button
-                            x:Name="btnNewUpdate"
-                            Margin="{StaticResource MarginLeftRight8}"
-                            Content="{x:Static resx:ResUI.menuNewUpdate}"
-                            Style="{StaticResource DefButton}"
-                            Visibility="Hidden" />
                     </ToolBar>
                 </ToolBarTray>
 

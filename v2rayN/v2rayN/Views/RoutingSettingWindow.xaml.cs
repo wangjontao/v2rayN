@@ -95,13 +95,4 @@ public partial class RoutingSettingWindow
         ViewModel?.RoutingAdvancedEditAsync(false);
     }
 
-    private void linkdomainStrategy_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        ProcUtils.ProcessStart("https://xtls.github.io/config/routing.html");
-    }
-
-    private void linkdomainStrategy4Singbox_Click(object sender, RoutedEventArgs e)
-    {
-        ProcUtils.ProcessStart("https://sing-box.sagernet.org/zh/configuration/route/rule_action/#strategy");
-    }
 }
