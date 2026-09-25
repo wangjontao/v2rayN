@@ -50,6 +50,42 @@ jobs:
             -p:EnableWindowsTargeting=true `
             -o "$env:OUTPUT_DIR"
 
+      - name: Bundle all supported proxy cores
+        shell: pwsh
+        run: |
+          $coreArchive = Join-Path $env:RUNNER_TEMP "v2rayN-windows-64-core.zip"
+          $coreExtract = Join-Path $env:RUNNER_TEMP "v2rayN-windows-64-core"
+          $coreUrl = "https://github.com/2dust/v2rayN-core-bin/raw/refs/heads/master/v2rayN-windows-64.zip"
+
+          Invoke-WebRequest -Uri $coreUrl -OutFile $coreArchive
+          Expand-Archive -Path $coreArchive -DestinationPath $coreExtract -Force
+
+          $binSource = Get-ChildItem -Path $coreExtract -Directory -Recurse |
+            Where-Object Name -eq "bin" |
+            Sort-Object { $_.FullName.Length } |
+            Select-Object -First 1
+          if (-not $binSource) {
+            throw "The downloaded core package does not contain a bin directory."
+          }
+
+          $binTarget = Join-Path $env:OUTPUT_DIR "bin"
+          New-Item -ItemType Directory -Path $binTarget -Force | Out-Null
+          Copy-Item -Path (Join-Path $binSource.FullName "*") -Destination $binTarget -Recurse -Force
+
+          $requiredCores = @(
+            "bin\Xray\xray.exe",
+            "bin\sing_box\sing-box.exe"
+          )
+          foreach ($core in $requiredCores) {
+            $corePath = Join-Path $env:OUTPUT_DIR $core
+            if (-not (Test-Path $corePath)) {
+              throw "Required core is missing after packaging: $core"
+            }
+          }
+
+          Write-Host "Bundled core directories:"
+          Get-ChildItem -Path $binTarget -Directory | Select-Object -ExpandProperty Name
+
       - name: Remove debug symbols
         shell: pwsh
         run: Get-ChildItem -Path "$env:OUTPUT_DIR" -Filter *.pdb -Recurse | Remove-Item -Force
